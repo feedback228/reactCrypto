@@ -5,13 +5,11 @@ const CryptoList = (props) => {
     const [displayedCryptos, setDisplayedCryptos] = useState([]);
     const [pinnedCryptos, setPinnedCryptos] = useState([]); 
 
-    // Загрузка закрепленных криптовалют из localStorage при монтировании компонента
     useEffect(() => {
         const savedPinnedCryptos = JSON.parse(localStorage.getItem('pinnedCryptos')) || [];
         setPinnedCryptos(savedPinnedCryptos);
-    }, []); // Этот useEffect с пустым массивом зависимостей будет вызван только при монтировании компонента
+    }, []);
 
-    // Следим за изменениями pinnedCryptos и сохраняем их в localStorage
     useEffect(() => {
         if (pinnedCryptos.length > 0) {
             localStorage.setItem('pinnedCryptos', JSON.stringify(pinnedCryptos));
@@ -43,14 +41,11 @@ const CryptoList = (props) => {
     };
 
     const togglePinCrypto = (crypto) => {
-        // Проверка, закреплена ли криптовалюта
         const isPinned = pinnedCryptos.some((pinned) => pinned.id === crypto.id);
 
         if (isPinned) {
-            // Если уже закреплена, то убираем из pinnedCryptos
             setPinnedCryptos((prev) => prev.filter((pinned) => pinned.id !== crypto.id));
         } else {
-            // Если не закреплена, добавляем в pinnedCryptos
             setPinnedCryptos((prev) => [...prev, crypto]);
         }
     };

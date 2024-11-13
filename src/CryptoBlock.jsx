@@ -1,4 +1,3 @@
-// CryptoBlock.js
 import React from 'react';
 
 const CryptoBlock = ({ crypto, isPinned, togglePinCrypto }) => {
